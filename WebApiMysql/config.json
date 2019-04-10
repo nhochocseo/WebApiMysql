@@ -1,0 +1,17 @@
+﻿{
+  "setting": {
+    "uObject": "JEkNPr5x2NFKwyklmwAO+mqxYicz0SqTqKKSHSSrYYo=",
+    "pObject": "YhkRLLPaaQdIILPWajLy1ZJI/5l0AZo0xPUB+fGQkME=",
+    "uBusiness": "4a2X6wE2lHMqH1guslZ7Bg==",
+    "pBusiness": "h3Eoj6SV8t4PMkwlruf6RrEA9VWLfFRG+PLXxYu9ymrvR4MCf9rIyFgmIVybZJGB"
+  },
+  "api": [
+    {
+      "ApiName": "login",
+      "ApiTokenUrl": "http://api.portal.bhxh.gov.vn/cvd/",
+      "ApiUrl": "http://api.portal.bhxh.gov.vn/cvd/api/Login",
+      "ApiAction": "GET",
+      "ApiParam": "username={0}&password={1}"
+    }
+  ]
+}

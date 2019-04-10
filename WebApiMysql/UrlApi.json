@@ -1,0 +1,9 @@
+[
+  {
+    "ApiCode": "001",
+    "ApiTokenUrl": "http://api.portal.bhxh.gov.vn/cvd",
+    "ApiUrl": "http://api.portal.bhxh.gov.vn/cvd/api/danhmuc/getListCategory",
+    "ApiAction": "POST",
+    "IsPublic": true
+  }
+]
