@@ -75,7 +75,7 @@ namespace WebApiMysql.Controllers
         private object callPublicApi(string code, JObject input, string typeValue = "post")
         {
             var item = apiSetting.First(s => s.ApiCode.Equals(code));
-            var test = EncryptionHelper.Encrypt("caodungstore");
+            //var test = EncryptionHelper.Encrypt("caodungstore");
             item.ApiToken = GetToken(config.setting.uObject, config.setting.pObject, item.ApiTokenUrl);
             var response = new HttpResponseMessage();
             if (typeValue == "post")
@@ -109,7 +109,8 @@ namespace WebApiMysql.Controllers
             try
             {
                 string code = input.Value<string>("code");
-                return callPublicApi(code, input, "get");
+                JObject data = input.Value<JObject>("data");
+                return callPublicApi(code, data, "get");
             }
             catch (Exception ex)
             {

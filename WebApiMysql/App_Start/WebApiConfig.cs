@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using WebApiMysql.Providers;
 
 namespace WebApiMysql
 {
@@ -23,6 +24,7 @@ namespace WebApiMysql
             var json = config.Formatters.JsonFormatter;
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.MessageHandlers.Add(new PreflightRequestsHandler());
         }
     }
 }
