@@ -9,5 +9,6 @@ namespace WebApiMysql.Interface
     public interface IPortalDanhMuc
     {
         List<DanhMuc> getListCategory();
+        int SaveDanhMuc(DanhMuc json);
     }
 }

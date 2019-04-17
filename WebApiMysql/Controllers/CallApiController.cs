@@ -72,17 +72,17 @@ namespace WebApiMysql.Controllers
                 return response;
             }
         }
-        private object callPublicApi(string code, JObject input, string typeValue = "post")
+        private object callPublicApi(string code, JObject input)
         {
             var item = apiSetting.First(s => s.ApiCode.Equals(code));
             //var test = EncryptionHelper.Encrypt("caodungstore");
             item.ApiToken = GetToken(config.setting.uObject, config.setting.pObject, item.ApiTokenUrl);
             var response = new HttpResponseMessage();
-            if (typeValue == "post")
+            if (item.ApiAction == "POST")
             {
                 response = (HttpResponseMessage)postValue(item.ApiAction, input, item);
             }
-            else if (typeValue == "get")
+            else if (item.ApiAction == "GET")
             {
                 var props = input.Properties();
                 string inp = string.Empty;
@@ -110,7 +110,7 @@ namespace WebApiMysql.Controllers
             {
                 string code = input.Value<string>("code");
                 JObject data = input.Value<JObject>("data");
-                return callPublicApi(code, data, "get");
+                return callPublicApi(code, data);
             }
             catch (Exception ex)
             {

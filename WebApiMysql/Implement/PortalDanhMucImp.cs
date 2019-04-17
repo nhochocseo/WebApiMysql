@@ -28,11 +28,29 @@ namespace WebApiMysql.Implement
                         Id = Convert.ToInt32(reader["ID"]),
                         Ten = reader["TEN"].ToString(),
                         IdDanhMucCha = Convert.ToInt32(reader["IDDANHMUCCHA"]),
+                        Url = Convert.ToString(reader["URL"]),
                     });
                 }
                 dbCon.Close();
             }
             return listUser;
+        }
+        public int SaveDanhMuc(DanhMuc json)
+        {
+            List<DanhMuc> listUser = new List<DanhMuc>();
+            var dbCon = DbConnection.Instance();
+            if (dbCon.IsConnect())
+            {
+                string query = String.Format("INSERT INTO DanhMuc(TEN, IDDANHMUCCHA) VALUES({0}, {1})",json.Ten, json.Id);
+                var cmd = new MySqlCommand(query, dbCon.Connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var test = reader.ToString();
+                }
+                dbCon.Close();
+            }
+            return 1;
         }
     }
 }

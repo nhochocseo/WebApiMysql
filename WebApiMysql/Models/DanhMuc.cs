@@ -10,5 +10,6 @@ namespace WebApiMysql.Models
         public int Id { get; set; }
         public string Ten { get; set; }
         public int IdDanhMucCha { get; set; }
+        public string Url { get; set; }
     }
 }

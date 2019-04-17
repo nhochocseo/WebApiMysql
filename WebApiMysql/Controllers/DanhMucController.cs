@@ -38,6 +38,7 @@ namespace WebApiMysql.Controllers
                             Id = item.Id,
                             Ten = item.Ten,
                             IdDanhMucCha = item.IdDanhMucCha,
+                            Url = item.Url
                         });
                     }
                     else
@@ -46,6 +47,7 @@ namespace WebApiMysql.Controllers
                             Id = item.Id,
                             Ten = item.Ten,
                             IdDanhMucCha = item.IdDanhMucCha,
+                            Url = item.Url
                         });
                     }
                 }
@@ -62,6 +64,7 @@ namespace WebApiMysql.Controllers
                                     Id = itemChild.Id,
                                     Ten = itemChild.Ten,
                                     IdDanhMucCha = itemChild.IdDanhMucCha,
+                                    Url = itemChild.Url
                                 });
                             }
                         }
@@ -71,6 +74,21 @@ namespace WebApiMysql.Controllers
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+        [HttpPost]
+        [Route("SaveDanhMuc")]
+        public object SaveDanhMuc(DanhMuc json)
+        {
+            try
+            {
+                var data = this._portalDanhMuc.SaveDanhMuc(json);
+                return data;
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
         }
