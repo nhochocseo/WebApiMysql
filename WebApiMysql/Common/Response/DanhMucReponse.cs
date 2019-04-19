@@ -8,6 +8,6 @@ namespace WebApiMysql.Common.Response
 {
     public class DanhMucReponse : DanhMuc
     {
-        public List<DanhMuc> ListChild { get; set; }
+        public List<DanhMucReponse> ListChild { get; set; }
     }
 }

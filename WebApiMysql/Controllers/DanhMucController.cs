@@ -20,6 +20,39 @@ namespace WebApiMysql.Controllers
         {
             this._portalDanhMuc = portalDanhMuc;
         }
+        private List<DanhMucReponse> BuilTree(int parentId, List<DanhMuc> lstDanhMuc)
+        {
+            var danhMucRp = new List<DanhMucReponse>();
+            List<DanhMuc> _subDanhMuc = lstDanhMuc.Where(d => d.IdDanhMucCha == parentId).ToList();
+            if (_subDanhMuc.Count() < 1)
+                return danhMucRp;
+            foreach (var item in _subDanhMuc)
+            {
+                if (lstDanhMuc.Where(d => d.IdDanhMucCha == item.Id).ToList().Any())
+                {
+                    danhMucRp.Add(new DanhMucReponse
+                    {
+                        Id = item.Id,
+                        Ten = item.Ten,
+                        Url = item.Url,
+                        IdDanhMucCha = item.IdDanhMucCha,
+                        ListChild = BuilTree(item.Id, lstDanhMuc)
+                    });
+                }
+                else
+                {
+                    danhMucRp.Add(new DanhMucReponse
+                    {
+                        Id = item.Id,
+                        Ten = item.Ten,
+                        Url = item.Url,
+                        IdDanhMucCha = item.IdDanhMucCha,
+                        ListChild = new List<DanhMucReponse>()
+                    });
+                }
+            }
+            return danhMucRp;
+        }
         [HttpGet]
         [Route("getListCategory")]
         public object getListCategory()
@@ -27,49 +60,8 @@ namespace WebApiMysql.Controllers
             try
             {
                 var data = this._portalDanhMuc.getListCategory();
-                var result = new List<DanhMucReponse>();
-                var listChild = new List<DanhMuc>();
-                foreach (var item in data)
-                {
-                    if (item.IdDanhMucCha == 0)
-                    {
-                        result.Add(new DanhMucReponse
-                        {
-                            Id = item.Id,
-                            Ten = item.Ten,
-                            IdDanhMucCha = item.IdDanhMucCha,
-                            Url = item.Url
-                        });
-                    }
-                    else
-                    {
-                        listChild.Add(new DanhMuc {
-                            Id = item.Id,
-                            Ten = item.Ten,
-                            IdDanhMucCha = item.IdDanhMucCha,
-                            Url = item.Url
-                        });
-                    }
-                }
-                if(listChild.Count() > 0)
-                {
-                    foreach (var item in result)
-                    {
-                        item.ListChild = new List<DanhMuc>();
-                        foreach (var itemChild in listChild)
-                        {
-                            if(item.Id == itemChild.IdDanhMucCha)
-                            {
-                                item.ListChild.Add(new DanhMuc {
-                                    Id = itemChild.Id,
-                                    Ten = itemChild.Ten,
-                                    IdDanhMucCha = itemChild.IdDanhMucCha,
-                                    Url = itemChild.Url
-                                });
-                            }
-                        }
-                    }
-                }
+
+                var result = BuilTree(0, data);
                 return result;
             }
             catch (Exception ex)
